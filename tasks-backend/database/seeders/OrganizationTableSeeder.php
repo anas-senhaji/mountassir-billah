@@ -14,7 +14,6 @@ class OrganizationTableSeeder extends Seeder
      */
     public function run()
     {
-        echo("hello");
         Organization::factory()->times(3)->create();
     }
 }
