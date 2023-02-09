@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
 
             $table->string('name');
-            $table->string('description');
             $table->unsignedInteger('board_id');
 
             $table->timestamps();
