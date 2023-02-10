@@ -1,7 +1,15 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\BoardController;
+use App\Http\Controllers\Api\ColumnController;
+use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrganizationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +22,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
-Route::middleware('auth.basic')->group(function () {
-
-});
-
-Route::get('/', function () {
-    return response()->json([
-        'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
-    ]);
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('boards', BoardController::class);
+    Route::apiResource('columns', ColumnController::class);
+    Route::apiResource('cards', CardController::class);
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('organizations', OrganizationController::class);
 });
