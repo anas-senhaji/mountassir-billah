@@ -19,3 +19,47 @@
 /tasks-backend/.gitignore
 /tasks-backend/.gitattributes
 /tasks-backend/.editorconfig
+
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Compiled output
+/tasks-frontend/dist
+/tasks-frontend/tmp
+/tasks-frontend/out-tsc
+/tasks-frontend/bazel-out
+
+# Node
+/tasks-frontend/node_modules
+/tasks-frontend/npm-debug.log
+/tasks-frontend/yarn-error.log
+
+# IDEs and editors
+/tasks-frontend/.idea/
+/tasks-frontend/.project
+/tasks-frontend/.classpath
+/tasks-frontend/.c9/
+/tasks-frontend/*.launch
+/tasks-frontend/.settings/
+/tasks-frontend/*.sublime-workspace
+
+# Visual Studio Code
+/tasks-frontend/.vscode/*
+/tasks-frontend/!.vscode/settings.json
+/tasks-frontend/!.vscode/tasks.json
+/tasks-frontend/!.vscode/launch.json
+/tasks-frontend/!.vscode/extensions.json
+/tasks-frontend/.history/*
+
+# Miscellaneous
+/tasks-frontend/.angular/cache
+/tasks-frontend/.sass-cache/
+/tasks-frontend/connect.lock
+/tasks-frontend/coverage
+/tasks-frontend/libpeerconnection.log
+/tasks-frontend/testem.log
+/tasks-frontend/typings
+/tasks-frontend/.gitignore
+
+# System files
+/tasks-frontend/.DS_Store
+/tasks-frontend/Thumbs.db
