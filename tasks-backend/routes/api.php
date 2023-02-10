@@ -1,8 +1,15 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\OrganizationController ;
+use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\BoardController;
+use App\Http\Controllers\Api\ColumnController;
+use App\Http\Controllers\Api\CardController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrganizationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +22,15 @@ use App\Http\Controllers\Api\OrganizationController ;
 |
 */
 
-Route::group(['middleware' => ['jwt.auth']], function () {
-    Route::apiResource('projects', 'ProjectController');
-    Route::apiResource('boards', 'BoardController');
-    Route::apiResource('cards', 'CardController');
-    Route::apiResource('users', 'UserController');
-    Route::apiResource('organizations', 'OrganizationController');
-});
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
 
-Route::group(['middleware' => 'api'], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('register', 'AuthController@register');
+Route::group(['middleware' => 'auth.jwt'], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+    Route::apiResource('projects', ProjectController::class);
+    Route::apiResource('boards', BoardController::class);
+    Route::apiResource('columns', ColumnController::class);
+    Route::apiResource('cards', CardController::class);
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('organizations', OrganizationController::class);
 });

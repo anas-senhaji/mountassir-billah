@@ -11,8 +11,6 @@ class OrganizationController extends Controller
     //
     public function index()
     {
-        return Organization::find(1008)->load(['users'=>function($query){
-            $query->paginate(1);
-        }]);
+        return Organization::find(1008)->with('users')->paginate(25);
     }
 }
