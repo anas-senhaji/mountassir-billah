@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Organization;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,6 +15,9 @@ class OrganizationFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Organization::class;
+
     public function definition()
     {
         return [

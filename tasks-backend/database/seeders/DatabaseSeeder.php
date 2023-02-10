@@ -17,11 +17,6 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
         $this->call([
             OrganizationTableSeeder::class,
-            ProjectTableSeeder::class,
-            BoardTableSeeder::class,
-            ColumnTableSeeder::class,
-            CardTableSeeder::class,
-            MemberTableSeeder::class,
         ]);
     }
 }

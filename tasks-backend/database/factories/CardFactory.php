@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Card;
+use App\Models\Column;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -14,11 +16,15 @@ class CardFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
+    protected $model = Card::class;
+
     public function definition()
     {
         return [
             'name' => $this->faker->sentence(3),
-            'description' => $this->faker->paragraph(4)
+            'description' => $this->faker->paragraph(2),
+            'column_id' => Column::factory(),
         ];
     }
 }
