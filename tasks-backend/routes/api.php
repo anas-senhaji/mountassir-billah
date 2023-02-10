@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\OrganizationController ;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,16 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['jwt.auth']], function () {
+    Route::apiResource('projects', 'ProjectController');
+    Route::apiResource('boards', 'BoardController');
+    Route::apiResource('cards', 'CardController');
+    Route::apiResource('users', 'UserController');
+    Route::apiResource('organizations', 'OrganizationController');
 });
 
-Route::middleware('auth.basic')->group(function () {
-
-});
-
-Route::get('/', function () {
-    return response()->json([
-        'message' => 'This is a simple example of item returned by your APIs. Everyone can see it.'
-    ]);
+Route::group(['middleware' => 'api'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('register', 'AuthController@register');
 });
