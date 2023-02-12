@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegistrationFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Namshi\JOSE\JWT;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -33,7 +34,9 @@ class AuthController extends Controller
             ], 401);
         }
 
-        return $this->respondWithToken($token);
+        $user = JWTAuth::user();
+
+        return $this->respondWithToken($token, $user);
     }
 
     /**
@@ -92,10 +95,11 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function respondWithToken(string $token)
+    protected function respondWithToken(string $token, User $user)
     {
         return response()->json([
             'access_token' => $token,
+            'user' => $user,
             'token_type' => 'bearer',
             'expires_in' => auth()->factory()->getTTL() * 60
         ]);

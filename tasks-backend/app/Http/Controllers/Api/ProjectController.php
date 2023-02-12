@@ -5,9 +5,23 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class ProjectController extends Controller
 {
+    /**
+     * @var
+     */
+    protected $user;
+
+    /**
+     * TaskController constructor.
+     */
+    public function __construct()
+    {
+        $this->user = JWTAuth::parseToken()->authenticate();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,18 +29,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::paginate(25);
-        return $projects;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $this->user->projects()->paginate(25);
     }
 
     /**
@@ -37,7 +40,23 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
+        $project = new Project();
+        $project->name = $request->name;
+        $project->description = $request->description;
+
+        if ($this->user->projects()->save($project))
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, project could not be added.'
+            ], 500);
     }
 
     /**

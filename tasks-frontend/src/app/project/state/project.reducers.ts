@@ -1,5 +1,3 @@
-// reducers for project state
-// Path: src\app\project\state\project.reducers.ts
 import { ProjectActionTypes, ProjectActions } from './project.actions';
 import { Project } from '../project';
 

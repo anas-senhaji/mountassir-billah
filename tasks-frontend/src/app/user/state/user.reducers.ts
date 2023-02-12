@@ -1,5 +1,3 @@
-// reducers for user state
-// Path: src\app\user\state\user.reducers.ts
 import { UserActionTypes, UserActions } from './user.actions';
 import { User } from '../user';
 
