@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     remember: [false]
   });
   loading$: Observable<boolean> | undefined;
-  error$: Observable<string> | undefined;
+  error$: Observable<any> | undefined;
 
   constructor(private fb: FormBuilder, private store: Store, public nav : NavbarService) { }
 

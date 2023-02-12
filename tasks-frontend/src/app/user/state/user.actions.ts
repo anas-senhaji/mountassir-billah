@@ -6,7 +6,8 @@ export enum UserActionTypes {
   USER_LOGIN_FAILURE = '[User] User Login Failure',
   USER_REGISTER = '[User] User Register',
   USER_REGISTER_SUCCESS = '[User] User Register Success',
-  USER_REGISTER_FAILURE = '[User] User Register Failure'
+  USER_REGISTER_FAILURE = '[User] User Register Failure',
+  USER_LOGOUT = '[User] User Logout',
 }
 
 export class Login implements Action {
@@ -39,6 +40,10 @@ export class RegisterFailure implements Action {
   constructor(public payload: any) {}
 }
 
-export type UserActions = Login | LoginSuccess | LoginFailure | Register | RegisterSuccess | RegisterFailure;
+export class Logout implements Action {
+  readonly type = UserActionTypes.USER_LOGOUT;
+}
+
+export type UserActions = Login | LoginSuccess | LoginFailure | Register | RegisterSuccess | RegisterFailure | Logout;
 
 

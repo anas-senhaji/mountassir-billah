@@ -16,6 +16,14 @@ export class ProjectEffects {
       ))
     ));
 
+    createProject$ = createEffect(() => this.actions$.pipe(
+      ofType(ProjectActionTypes.CREATE_PROJECT),
+      switchMap((action: any) => this.projectService.createProject(action.payload).pipe(
+        map((res: any) => new LoadProjectsSuccess(res.data)),
+        catchError(err => of(new LoadProjectsFailure(err)))
+      ))
+    ));
+
     constructor(
       private actions$: Actions,
       private projectService: ProjectService

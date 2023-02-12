@@ -13,7 +13,8 @@ export class ProjectComponent implements OnInit{
   constructor(private store: Store, public nav: NavbarService) {}
 
   ngOnInit(): void {
-    this.nav.show();
     this.store.dispatch(new LoadProjects());
+    this.store.select(state => state).subscribe(console.log);
+    this.nav.show();
   }
 }

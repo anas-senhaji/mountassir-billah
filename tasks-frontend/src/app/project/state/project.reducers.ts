@@ -1,21 +1,21 @@
 import { ProjectActionTypes, ProjectActions } from './project.actions';
 import { Project } from '../project';
 
-export interface ProjectState {
+export interface ProjectsState {
   projects: Project[];
   currentProjectId?: number | null;
   loading: boolean;
   error: string;
 }
 
-const initialState: ProjectState = {
+const initialState: ProjectsState = {
   projects: [],
   currentProjectId: null,
   loading: false,
   error: ''
 };
 
-export function projectReducer(state = initialState, action: ProjectActions): ProjectState {
+export function projectReducer(state = initialState, action: ProjectActions): ProjectsState {
   switch (action.type) {
     case ProjectActionTypes.LOAD_PROJECTS:
       return {

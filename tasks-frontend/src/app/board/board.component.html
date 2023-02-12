@@ -1,1 +1,12 @@
-<p>board works!</p>
+<div id="board" class="d-flex flex-row"
+  cdkDropList
+  cdkDropListOrientation="horizontal"
+  (cdkDropListDropped)="drop($event)"
+  cdkDropListGroup>
+  <!-- boucle flex horizontal column -->
+  <div *ngFor="let column of columns" cdkDrag>
+    <app-column
+      [column]="column"
+    ></app-column>
+  </div>
+</div>

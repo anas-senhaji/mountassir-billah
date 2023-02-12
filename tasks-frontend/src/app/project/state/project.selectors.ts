@@ -1,33 +1,31 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import { ProjectState } from "./project.reducers";
-import { projectReducer } from "./project.reducers";
+import { ProjectsState } from "./project.reducers";
 import { Project } from "../project";
-import { ProjectActions } from "./project.actions";
 
-export const selectProjectState = createFeatureSelector<ProjectState>('project');
+export const selectProjectState = createFeatureSelector<ProjectsState>('project');
 
-export const selectProject = createSelector(
+export const selectProjects = createSelector(
   selectProjectState,
-  (state: ProjectState) => state.projects
+  (state: ProjectsState) => state.projects
 );
 
-export const selectProjectLoading = createSelector(
+export const selectProjectsLoading = createSelector(
   selectProjectState,
-  (state: ProjectState) => state.loading
+  (state: ProjectsState) => state.loading
 );
 
-export const selectProjectError = createSelector(
+export const selectProjectsError = createSelector(
   selectProjectState,
-  (state: ProjectState) => state.error
+  (state: ProjectsState) => state.error
 );
 
 export const selectCurrentProjectId = createSelector(
   selectProjectState,
-  (state: ProjectState) => state.currentProjectId
+  (state: ProjectsState) => state.currentProjectId
 );
 
 export const selectCurrentProject = createSelector(
-  selectProject,
+  selectProjects,
   selectCurrentProjectId,
   (projects: Project[], currentProjectId: number | null | undefined) => {
     if (currentProjectId === 0) {
@@ -44,7 +42,7 @@ export const selectCurrentProject = createSelector(
 );
 
 export const selectProjectStatus = createSelector(
-  selectProject,
+  selectProjects,
   (projects: Project[]) => {
     const status = {
       Active: 0,

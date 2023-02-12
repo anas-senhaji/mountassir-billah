@@ -1,1 +1,20 @@
-<p>column works!</p>
+<div id="column">
+  <div id="card" class="card">
+    <div class="card-body"
+      cdkDropList
+      [cdkDropListData]="column"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="card-title">
+        <input [value]="column?.name">
+        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+      </div>
+      <app-card
+        [card]="card"
+        cdkDrag
+        [cdkDragData]="card"
+        *ngFor="let card of column?.cards"
+      ></app-card>
+    </div>
+  </div>
+</div>

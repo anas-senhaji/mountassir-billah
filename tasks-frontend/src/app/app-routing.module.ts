@@ -7,6 +7,8 @@ const appRoutes: Routes = [
     import('./user/user.module').then(m => m.UserModule) },
   { path: 'projects', loadChildren: () =>
     import('./project/project.module').then(m => m.ProjectModule) },
+  { path: 'boards', loadChildren: () =>
+    import('./board/board.module').then(m => m.BoardModule) },
   { path: '', redirectTo: 'auth/login', pathMatch: 'full'},
   { path: '**', component: PageNotFoundComponent }
 ];
