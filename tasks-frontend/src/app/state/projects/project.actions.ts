@@ -1,5 +1,5 @@
 import { Action } from "@ngrx/store";
-import { Project } from "../project";
+import { Project } from "../../project/project";
 
 export enum ProjectActionTypes {
   LOAD_PROJECTS = '[Project] Load Projects',
@@ -90,7 +90,7 @@ export class DeleteProjectSuccess implements Action {
 
 export class DeleteProjectFailure implements Action {
   readonly type = ProjectActionTypes.DELETE_PROJECT_FAILURE;
-  constructor(public payload: any) { }
+  constructor(public payload: string) { }
 }
 
 export type ProjectActions = LoadProjects | LoadProjectsSuccess | LoadProjectsFailure | LoadProject | LoadProjectSuccess | LoadProjectFailure | CreateProject | CreateProjectSuccess | CreateProjectFailure | UpdateProject | UpdateProjectSuccess | UpdateProjectFailure | DeleteProject | DeleteProjectSuccess | DeleteProjectFailure;

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CardController extends Controller
+class CardController extends ApiBaseController
 {
     /**
      * Show the form for creating a new resource.

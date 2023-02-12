@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Board;
 use Illuminate\Http\Request;
 
-class BoardController extends Controller
+class BoardController extends ApiBaseController
 {
     /**
      * Display a listing of the resource.
@@ -47,10 +47,16 @@ class BoardController extends Controller
      */
     public function show($id)
     {
-        $board = Board::with(['columns.cards'])->findOrFail($id);
+        $board = Board::with('columns.cards', 'users')->findOrFail($id);
+
+        if (!$board->users->contains($this->user)) {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
 
         return response()->json([
-            'data' => $board
+            'board' => $board
         ], 200);
     }
 

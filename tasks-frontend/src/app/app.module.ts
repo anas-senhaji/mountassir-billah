@@ -13,6 +13,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarService } from './shared/navbar/navbar.service';
+import { reducers } from './state/app-state';
+import { UserEffects } from './state/user';
+import { ProjectEffects } from './state/projects';
 
 
 @NgModule({
@@ -26,8 +29,8 @@ import { NavbarService } from './shared/navbar/navbar.service';
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducers, {}),
+    EffectsModule.forRoot([UserEffects, ProjectEffects]),
     StoreDevtoolsModule.instrument({
       name: 'Tasks Demo App DevTools',
       maxAge: 25,

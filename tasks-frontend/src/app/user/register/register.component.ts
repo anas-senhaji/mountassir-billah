@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { NavbarService } from "src/app/shared/navbar/navbar.service";
-import { Register } from "../state";
+import { Register } from "src/app/state/user";
 
 @Component({
   selector: 'app-register',

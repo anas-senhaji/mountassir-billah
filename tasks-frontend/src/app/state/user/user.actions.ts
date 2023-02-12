@@ -8,6 +8,8 @@ export enum UserActionTypes {
   USER_REGISTER_SUCCESS = '[User] User Register Success',
   USER_REGISTER_FAILURE = '[User] User Register Failure',
   USER_LOGOUT = '[User] User Logout',
+  USER_LOAD = '[User] User Load',
+  USER_LOAD_FROM_LOCAL_STORAGE = '[User] User Load From Local Storage'
 }
 
 export class Login implements Action {
@@ -42,8 +44,18 @@ export class RegisterFailure implements Action {
 
 export class Logout implements Action {
   readonly type = UserActionTypes.USER_LOGOUT;
+  constructor(public tokenKey: string) {}
 }
 
-export type UserActions = Login | LoginSuccess | LoginFailure | Register | RegisterSuccess | RegisterFailure | Logout;
+export class loadUser implements Action {
+  readonly type = UserActionTypes.USER_LOAD;
+}
+
+export class loadUserFromLocalStorage implements Action {
+  readonly type = UserActionTypes.USER_LOAD_FROM_LOCAL_STORAGE;
+  constructor(public payload: any) {}
+}
+
+export type UserActions = Login | LoginSuccess | LoginFailure | Register | RegisterSuccess | RegisterFailure | Logout | loadUser | loadUserFromLocalStorage;
 
 

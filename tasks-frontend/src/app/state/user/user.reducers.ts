@@ -1,5 +1,5 @@
 import { UserActionTypes, UserActions } from './user.actions';
-import { User } from '../user';
+import { User } from '../../user/user';
 
 export interface UserState {
   isAuthenticated: boolean,
@@ -57,6 +57,28 @@ export function userReducer(state = initialState, action: UserActions): UserStat
         loading: false,
         error: "Email already exists",
         isAuthenticated: false
+      };
+    case UserActionTypes.USER_LOGOUT:
+      return {
+        ...state,
+        loading: false,
+        user: null,
+        error: '',
+        isAuthenticated: false
+      };
+    case UserActionTypes.USER_LOAD:
+      return {
+        ...state,
+        loading: true,
+        error: ''
+      };
+    case UserActionTypes.USER_LOAD_FROM_LOCAL_STORAGE:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+        error: '',
+        isAuthenticated: true
       };
     default:
       return state;

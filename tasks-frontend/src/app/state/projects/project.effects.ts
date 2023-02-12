@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
-import { ProjectService } from '../project.service';
+import { ProjectService } from '../../project/project.service';
 import { ProjectActionTypes, LoadProjectsSuccess, LoadProjectsFailure } from './project.actions';
 
 @Injectable()

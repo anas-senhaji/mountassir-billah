@@ -7,21 +7,8 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class ProjectController extends Controller
+class ProjectController extends ApiBaseController
 {
-    /**
-     * @var
-     */
-    protected $user;
-
-    /**
-     * TaskController constructor.
-     */
-    public function __construct()
-    {
-        $this->user = JWTAuth::parseToken()->authenticate();
-    }
-
     /**
      * Display a listing of the resource.
      *

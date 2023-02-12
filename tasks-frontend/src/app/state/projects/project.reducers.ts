@@ -1,5 +1,5 @@
 import { ProjectActionTypes, ProjectActions } from './project.actions';
-import { Project } from '../project';
+import { Project } from '../../project/project';
 
 export interface ProjectsState {
   projects: Project[];

@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { NavbarService } from 'src/app/shared/navbar/navbar.service';
-import { Login } from '../state';
-import { selectUserError, selectUserLoading } from '../state/user.selectors';
+import { Login } from 'src/app/state/user';
+import { selectUserError, selectUserLoading } from '../../state/user/user.selectors';
 
 @Component({
   selector: 'app-login',

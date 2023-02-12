@@ -4,9 +4,8 @@ import { ProjectNewComponent } from './project-new/project-new.component';
 import { ProjectEditComponent } from './project-edit/project-edit.component';
 import { ProjectComponent } from './project.component';
 import { RouterModule, Routes } from '@angular/router';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { projectReducer, ProjectEffects } from './state';
+import { projectReducer } from '../state/projects';
 
 const projectRoutes: Routes = [
   { path: 'new', component: ProjectNewComponent },
@@ -23,8 +22,7 @@ const projectRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(projectRoutes),
-    StoreModule.forFeature('project', projectReducer),
-    EffectsModule.forFeature([ProjectEffects]),
+    StoreModule.forFeature('projects', projectReducer),
   ]
 })
 export class ProjectModule { }

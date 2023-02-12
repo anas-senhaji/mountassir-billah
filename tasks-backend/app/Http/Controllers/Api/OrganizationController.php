@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Board;
 use App\Models\Organization;
 
-class OrganizationController extends Controller
+class OrganizationController extends ApiBaseController
 {
     //
     public function index()

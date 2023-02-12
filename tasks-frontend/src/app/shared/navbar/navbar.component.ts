@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Project } from 'src/app/project/project';
-import { selectProjects } from 'src/app/project/state/project.selectors';
-import { Logout, selectUser } from 'src/app/user/state';
-import { User } from 'src/app/user/user';
+import { LoadProjects } from 'src/app/state/projects';
+import { selectProjects } from 'src/app/state/projects/project.selectors';
+import { loadUser, Logout, selectUser } from 'src/app/state/user';
 import { NavbarService } from './navbar.service';
 
 @Component({
@@ -13,15 +13,19 @@ import { NavbarService } from './navbar.service';
 })
 
 export class NavbarComponent {
-  user$: Observable<User | null> = this.store.select(selectUser) ;
+  user$ = this.store.select(selectUser);
 
   projects$: Observable<Project[]> = this.store.select(selectProjects);
   constructor( public nav: NavbarService, private store: Store) {}
 
-  onInit() {
+  ngOnInit() {
+    this.store.dispatch(new loadUser());
+    this.store.dispatch(new LoadProjects());
+    console.log('after dispatch');
+
   }
 
   onLogout() {
-    this.store.dispatch(new Logout());
+    this.store.dispatch(new Logout(localStorage.getItem('token') as string));
   }
 }

@@ -1,12 +1,13 @@
-<nav class="navbar sticky-top navbar-light border-bottom">
+<nav class="navbar sticky-top navbar-light border-bottom"  *ngIf="user$ | async as user">
   <a class="navbar-brand p-2 ml-5" routerLink="/projects">
     <img src="./assets/img/image.png" width="60" height="50" class="d-inline-block align-top" alt="
     Tasks">
   </a>
   <!-- user details -->
-  <div class="dropdown" *ngIf="user$ | async as user">
+  <div class="dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
       <img src="./assets/img/image.png" width="30" height="30" class="d-inline-block align-top" alt="user">
+      {{ user.name }}
     </a>
     <div class="dropdown-menu">
       <a class="dropdown-item">{{ user.email }}</a>

@@ -8,7 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const boardRoutes: Routes = [
-  { path: '', component: BoardComponent },
+  { path: ':id', component: BoardComponent },
 ];
 
 @NgModule({
