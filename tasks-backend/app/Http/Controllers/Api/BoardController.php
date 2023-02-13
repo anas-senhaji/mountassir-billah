@@ -47,7 +47,7 @@ class BoardController extends ApiBaseController
      */
     public function show($id)
     {
-        $board = Board::with('columns.cards', 'users')->findOrFail($id);
+        $board = Board::with('columns.cards.users', 'users')->findOrFail($id);
 
         if (!$board->users->contains($this->user)) {
             return response()->json([

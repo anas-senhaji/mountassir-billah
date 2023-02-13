@@ -16,6 +16,7 @@ import { NavbarService } from './shared/navbar/navbar.service';
 import { reducers } from './state/app-state';
 import { UserEffects } from './state/user';
 import { ProjectEffects } from './state/projects';
+import { BoardEffects } from './state/board';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { ProjectEffects } from './state/projects';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot(reducers, {}),
-    EffectsModule.forRoot([UserEffects, ProjectEffects]),
+    EffectsModule.forRoot([UserEffects, ProjectEffects, BoardEffects]),
     StoreDevtoolsModule.instrument({
       name: 'Tasks Demo App DevTools',
       maxAge: 25,

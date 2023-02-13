@@ -6,6 +6,10 @@ import { NavbarService } from '../shared/navbar/navbar.service';
 import { BoardService } from './board.service';
 import { Board } from './board';
 import { Column } from './column/column';
+import { selectBoard } from '../state/board/board.selectors';
+import { BoardActions } from '../state/board';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-board',
@@ -13,7 +17,7 @@ import { Column } from './column/column';
   styleUrls: ['./board.component.scss']
 })
 export class BoardComponent {
-  board: Board = {} as Board;
+  board$: Observable<Board> = this.store.select(selectBoard);
   columns: Column[] = [];
 
   constructor(public nav: NavbarService, private store: Store, private boardService: BoardService, private route: ActivatedRoute) {
@@ -22,10 +26,7 @@ export class BoardComponent {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      this.boardService.getBoard(+params['id']).subscribe((board:any) => {
-        this.board = board.board;
-        this.columns = this.board.columns ?? [];
-      })
+      this.store.dispatch({type: BoardActions.loadBoard.type, payload: params['id']});
     });
   }
 
