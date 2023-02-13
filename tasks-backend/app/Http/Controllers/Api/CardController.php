@@ -10,16 +10,6 @@ use Illuminate\Http\Request;
 class CardController extends ApiBaseController
 {
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -27,29 +17,27 @@ class CardController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'string',
+            'column_id' => 'required|int'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $card = new Card();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $card->name = $request->name;
+        $card->description = $request->description;
+        $card->column_id = $request->column_id;
+
+        if ($card->save())
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**
@@ -61,7 +49,25 @@ class CardController extends ApiBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'string',
+            'column_id' => 'required|int'
+        ]);
+
+        $card = Card::find($id);
+
+        $card->fill($validatedData);
+
+        if ($card->save())
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**

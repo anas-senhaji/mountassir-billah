@@ -14,23 +14,13 @@ class BoardController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         $boards = $this->user->boards()->get();
 
         return response()->json([
             'boards' => $boards
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
     }
 
     /**
@@ -41,7 +31,23 @@ class BoardController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
+
+        $board = new Board();
+
+        $board->name = $request->name;
+
+        if ($this->user->boards()->save($board))
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**
@@ -66,17 +72,6 @@ class BoardController extends ApiBaseController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -85,7 +80,23 @@ class BoardController extends ApiBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $board = Board::find($id);
+
+        $board->fill($validatedData);
+
+        if ($board->save())
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**
@@ -96,6 +107,9 @@ class BoardController extends ApiBaseController
      */
     public function destroy($id)
     {
-        //
+        $board = Board::findOrFail($id);
+        $board->delete();
+
+        return response()->json(['message' => 'Board deleted successfully.'], 200);
     }
 }

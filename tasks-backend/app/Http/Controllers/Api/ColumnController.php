@@ -3,30 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Column;
 use Illuminate\Http\Request;
 
 class ColumnController extends ApiBaseController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -35,29 +16,24 @@ class ColumnController extends ApiBaseController
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $column = new Column();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        $column->name = $request->name;
+        $column->board_id = $request->board_id;
+
+        if ($column->save())
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**
@@ -69,7 +45,24 @@ class ColumnController extends ApiBaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'board_id' => 'required|int'
+        ]);
+
+        $column = Column::find($id);
+
+        $column->fill($validatedData);
+
+        if ($column->save())
+            return response()->json([
+                'success' => true,
+            ]);
+        else
+            return response()->json([
+                'success' => false,
+                'message' => 'Sorry, board could not be added.'
+            ], 500);
     }
 
     /**
@@ -80,6 +73,10 @@ class ColumnController extends ApiBaseController
      */
     public function destroy($id)
     {
-        //
+        $column = Column::findOrFail($id);
+
+        $column->delete();
+
+        return response()->json(['message' => 'Column deleted successfully.'], 200);
     }
 }
