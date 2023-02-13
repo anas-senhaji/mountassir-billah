@@ -33,4 +33,6 @@ Route::group(['middleware' => 'auth.jwt'], function () {
     Route::apiResource('cards', CardController::class);
     Route::apiResource('users', UserController::class);
     Route::apiResource('organizations', OrganizationController::class);
+    Route::post('cards/users', [CardController::class, 'assign']);
+    Route::post('cards/columns', [CardController::class, 'changeStatus']);
 });

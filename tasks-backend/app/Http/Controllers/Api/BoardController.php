@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Board;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class BoardController extends ApiBaseController
@@ -13,9 +14,13 @@ class BoardController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $boards = $this->user->boards()->get();
+
+        return response()->json([
+            'boards' => $boards
+        ]);
     }
 
     /**
@@ -23,9 +28,9 @@ class BoardController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**

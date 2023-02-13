@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Card;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CardController extends ApiBaseController
@@ -78,9 +80,20 @@ class CardController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function assign()
+    public function assign(Request $request)
     {
-        //
+        $card = Card::find($request->id);
+        $user = User::find($request->user_id);
+
+        if (!$card->users->contains($user)) {
+            $card->users()->attach($user);
+            return response()->json([
+                'message'=> 'success'
+            ]);
+        }
+        return response()->json([
+            'error' => 'Unauthorized'
+        ], 401);
     }
 
     /**
@@ -88,8 +101,17 @@ class CardController extends ApiBaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeStatus()
+    public function changeStatus(Request $request)
     {
-        //
+        $card = Card::find($request->id);
+        $card->fill(['column_id' => $request->column_id]);
+        if ($card->save())
+            return response()->json([
+               'message'=> 'success'
+            ]);
+        return response()->json([
+            'message'=> 'failed'
+        ]);
+
     }
 }
