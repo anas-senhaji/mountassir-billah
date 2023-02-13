@@ -15,6 +15,9 @@
         [cdkDragData]="card"
         *ngFor="let card of column?.cards"
       ></app-card>
+      <div class="card-footer">
+        <input type="text" placeholder="Add a card" (keyup.enter)="addCard($event)">
+      </div>
     </div>
   </div>
 </div>

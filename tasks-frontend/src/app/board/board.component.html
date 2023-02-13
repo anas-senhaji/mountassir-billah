@@ -9,4 +9,12 @@
       [column]="column"
     ></app-column>
   </div>
+  <!-- add column -->
+  <div class="column">
+    <div class="column-header">
+      <div class="column-title">
+        <input type="text" placeholder="Add a column" (keyup.enter)="addColumn($event)">
+      </div>
+    </div>
+  </div>
 </div>

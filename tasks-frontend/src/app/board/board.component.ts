@@ -29,6 +29,12 @@ export class BoardComponent {
     });
   }
 
+  addColumn(event: any) {
+    this.columns.push({name: event.target.value, cards: []} as Column);
+    event.target.value = '';
+    event.target.blur();
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
   }

@@ -11,7 +11,6 @@ export class ColumnComponent implements OnInit{
   @Input() column: Column | any;
 
   ngOnInit(): void {
-    console.log(this.column);
 
   }
 
@@ -26,5 +25,11 @@ export class ColumnComponent implements OnInit{
         event.currentIndex,
       );
     }
+  }
+
+  addCard(event: any) {
+    this.column.cards.push({name: event.target.value});
+    event.target.value = '';
+    event.target.blur();
   }
 }
