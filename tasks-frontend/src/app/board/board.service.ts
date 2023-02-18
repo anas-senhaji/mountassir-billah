@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { API_URL } from 'src/environment';
 
 const boardUrl = `${API_URL}/boards`;
+const columnUrl = `${API_URL}/columns`;
+const cardUrl = `${API_URL}/cards`;
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,14 @@ const boardUrl = `${API_URL}/boards`;
 export class BoardService {
 
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
+
+  getBoards(page?: string): Observable<any> {
+    return page ? this.http.get(page): this.http.get(boardUrl);
+  }
+
+  createBoard(payload: any): Observable<any> {
+    return this.http.post(boardUrl, payload);
+  }
 
   getBoard(id: number) {
     return this.http.get(boardUrl + '/' + id);
@@ -30,7 +40,7 @@ export class BoardService {
   }
 
   addColumn(payload: any): Observable<any> {
-    throw new Error('Method not implemented.');
+    return this.http.post(columnUrl, payload);
   }
 
   deleteColumn(payload: any): Observable<any> {

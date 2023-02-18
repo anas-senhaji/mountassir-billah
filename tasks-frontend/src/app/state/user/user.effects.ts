@@ -28,22 +28,20 @@ export class UserEffects {
   logout$ = createEffect(() => this.actions$.pipe(
     ofType(UserActionTypes.USER_LOGOUT),
     switchMap((action: Logout) => this.authService.logout(action.tokenKey).pipe(
-      tap((res) => {
-        console.log(res);
+      map(() => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         this.router.navigate(['/auth', 'login']);
-      },
+      }),
       catchError(err => of("Could not logout"))
-    ))
-  )), { dispatch: false });
+    ))), { dispatch: false });
 
   loginSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(UserActionTypes.USER_LOGIN_SUCCESS, UserActionTypes.USER_REGISTER_SUCCESS),
     map((action: LoginSuccess | RegisterSuccess) => {
       localStorage.setItem('token', action.payload.access_token);
       localStorage.setItem('user', JSON.stringify(action.payload.user));
-      this.router.navigate(['/projects']);
+      this.router.navigate(['/boards']);
     })
   ), { dispatch: false });
 

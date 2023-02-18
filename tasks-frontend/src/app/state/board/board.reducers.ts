@@ -1,10 +1,3 @@
-// Board reducer
-
-// Path: src\app\state\board\board.reducers.ts
-//
-// create a reducer function for each action type in
-// ./board.actions.ts
-//
 import { createReducer, on } from "@ngrx/store";
 import { Card } from "src/app/board/column/card/card";
 import { BoardActions } from "./board.actions";
@@ -12,12 +5,74 @@ import { initialBoardState, BoardState } from "./board.state";
 
 export const boardReducer = createReducer(
   initialBoardState,
+  on(BoardActions.loadBoards, (state, action) => {
+    return {
+      ...state,
+      boards: [],
+      loading: true,
+    };
+  }),
+  on(BoardActions.loadBoardsSuccess, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      boards: action.boards.data,
+      pagination: action.boards.links,
+      error: '',
+    };
+  }),
+  on(BoardActions.loadBoardsFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      boards: [],
+      error: action.payload,
+    };
+  }),
+  on(BoardActions.loadPage, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(BoardActions.loadPageSuccess, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      boards: action.boards.data,
+      pagination: action.boards.links,
+      error: '',
+    };
+  }),
+
   on(BoardActions.loadBoard, (state, action) => {
     return {
       ...state,
       loading: true,
     };
   }),
+  on(BoardActions.createBoard, (state, action) => {
+    return {
+      ...state,
+      loading: true,
+    };
+  }),
+  on(BoardActions.createBoardSuccess, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      board: action.payload,
+      error: '',
+    };
+  }),
+  on(BoardActions.createBoardFailure, (state, action) => {
+    return {
+      ...state,
+      loading: false,
+      error: action.payload,
+    };
+  })
+  ,
   on(BoardActions.loadBoardSuccess, (state, action) => {
     return {
       ...state,
@@ -44,7 +99,7 @@ export const boardReducer = createReducer(
     return {
       ...state,
       loading: false,
-      board: {...state.board, columns: [...[state.board.columns], action.payload]},
+      board: {...state.board, columns: [...state.board.columns!, action.column]},
       error: '',
     };
   }),

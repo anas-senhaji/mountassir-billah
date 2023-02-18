@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AppRoutingModule } from './app-routing.module';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
-import { LoadingInterceptor } from './shared/loading.interceptor';
 import { JwtInterceptor } from './shared/jwt.interceptor';
 import { EffectsModule } from '@ngrx/effects';
 import { NavbarComponent } from './shared/navbar/navbar.component';
@@ -17,6 +16,7 @@ import { reducers } from './state/app-state';
 import { UserEffects } from './state/user';
 import { ProjectEffects } from './state/projects';
 import { BoardEffects } from './state/board';
+import { LoadingInterceptor } from './shared/loading.interceptor';
 
 
 @NgModule({

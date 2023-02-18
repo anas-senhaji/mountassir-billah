@@ -1,15 +1,23 @@
 import { createActionGroup, props } from "@ngrx/store";
 import { Board } from "src/app/board/board";
-import { User } from "src/app/user/user";
+import { Column } from "src/app/board/column/column";
 
 export const BoardActions = createActionGroup({
   source: "Board",
   events: {
+    "Load boards": props<{ payload: any }>(),
+    "Load boards success": props<{ boards: {data: Board[], links: any[]} }>(),
+    "Load boards failure": props<{ payload: any }>(),
+    "Load page": props<{ payload: any }>(),
+    "Load page success": props<{ boards: {data: Board[], links: any[]} }>(),
+    "Create board": props<{ payload: any }>(),
+    "Create board success": props<{ payload: any }>(),
+    "Create board failure": props<{ payload: any }>(),
     "Load board": props<{ payload: any }>(),
     "Load board success": props<{ board: Board }>(),
     "Load board failure": props<{ payload: any }>(),
     "Add column": props<{ payload: any }>(),
-    "Add column success": props<{ payload: any }>(),
+    "Add column success": props<{ column: Column }>(),
     "Add column failure": props<{ payload: any }>(),
     "Add card": props<{ payload: any }>(),
     "Add card success": props<{ payload: any }>(),
