@@ -16,7 +16,7 @@ class BoardController extends ApiBaseController
      */
     public function index()
     {
-        $boards = $this->user->boards()->get();
+        $boards = $this->user->boards()->paginate(9);
 
         return response()->json([
             'boards' => $boards
@@ -41,7 +41,7 @@ class BoardController extends ApiBaseController
 
         if ($this->user->boards()->save($board))
             return response()->json([
-                'success' => true,
+                'board' => $board,
             ]);
         else
             return response()->json([

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Column;
 use Illuminate\Http\Request;
 
@@ -28,6 +27,7 @@ class ColumnController extends ApiBaseController
         if ($column->save())
             return response()->json([
                 'success' => true,
+                'column'=>$column
             ]);
         else
             return response()->json([
@@ -57,6 +57,7 @@ class ColumnController extends ApiBaseController
         if ($column->save())
             return response()->json([
                 'success' => true,
+                'column' => $column
             ]);
         else
             return response()->json([
